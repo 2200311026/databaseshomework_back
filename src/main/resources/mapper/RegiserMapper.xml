@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--找到对应的mapper接口-->
+<mapper namespace="com.wei.furn.dao.RegisterDao">
+
+
+    <!--    配置resultMap-->
+    <resultMap id="BaseResultMap" type="Register">
+        <id column="name" property="name" jdbcType="VARCHAR"></id>
+        <id column="email" property="email" jdbcType="VARCHAR"></id>
+        <id column="pwd" property="pwd" jdbcType="VARCHAR"></id>
+        <id column="mobile" property="mobile" jdbcType="VARCHAR"></id>
+        <id column="gender" property="gender" jdbcType="INTEGER"></id>
+        <id column="money" property="money" jdbcType="INTEGER"></id>
+    </resultMap>
+
+        <insert id="insertUser" parameterType="com.wei.furn.bean.Register">
+            INSERT INTO userr (id, name, pwd, mobile, email, gender,admin,money)
+            VALUES (NULL, #{name}, #{pwd}, #{mobile}, #{email}, #{gender}, 0,0)
+        </insert>
+
+
+</mapper>

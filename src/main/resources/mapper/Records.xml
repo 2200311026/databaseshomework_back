@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--找到对应的mapper接口-->
+<mapper namespace="com.wei.furn.dao.RecordsDao">
+
+    <!--    配置resultMap-->
+    <resultMap id="BaseResultMap" type="records">
+        <id column="recordId" property="requestId" jdbcType="BIGINT"></id>
+        <id column="returnTime" property="returnTime" jdbcType="VARCHAR"></id>
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <id column="isbn" property="isbn" jdbcType="INTEGER"></id>
+        <id column="requestId" property="requestId" jdbcType="INTEGER"></id>
+        <id column="returnState" property="returnState" jdbcType="INTEGER"></id>
+        <id column="isTimeOut" property="isTimeOut" jdbcType="INTEGER"></id>
+        <id column="penalty" property="penalty" jdbcType="INTEGER"></id>
+        <id column="bookNumber" property="bookNumber" jdbcType="VARCHAR"></id>
+    </resultMap>
+
+<select id="getRecordsInfo" resultType="records">
+    SELECT *FROM records
+</select>
+
+    <update id="changePenalty" parameterType="long" >
+        update records
+        Set penalty = #{penalty}
+        where recordId=#{recordId}
+    </update>
+
+    <update id="isTimeOut" parameterType="long" >
+        UPDATE records
+        SET isTimeOut = 1
+        WHERE recordId=#{recordId}
+    </update>
+
+    <update id="PenaltyAdd" parameterType="long">
+        UPDATE records
+        SET penalty = penalty + 2
+        WHERE recordId = #{recordId};
+    </update>
+
+    <select id="getUerRecord" resultType="records" parameterType="long">
+        SELECT *FROM records WHERE id=#{id}
+    </select>
+
+    </mapper>

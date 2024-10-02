@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--找到对应的mapper接口-->
+<mapper namespace="com.wei.furn.dao.RequestDao">
+
+
+    <!--    配置resultMap-->
+    <resultMap id="BaseResultMap" type="Request">
+        <id column="requestId" property="requestId" jdbcType="INTEGER"></id>
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <id column="isbn" property="isbn" jdbcType="INTEGER"></id>
+        <id column="borrowSate" property="borrowState" jdbcType="INTEGER"></id>
+        <id column="bookNumber" property="bookNumber" jdbcType="VARCHAR"></id>
+    </resultMap>
+
+    <insert id="RequestBorrow" parameterType="Request">
+        INSERT INTO request VALUES
+        (NULL,#{id},#{isbn},#{borrowState},#{bookNumber})
+    </insert>
+
+    <delete id="DeleteRequest" parameterType="long">
+        DELETE FROM request WHERE requestId = #{requestId}; -- 接口7 通过单号即requestId删除请求表中的数据
+    </delete>
+
+    <update id="updataBorrowState" parameterType="long">
+        UPDATE request
+        SET borrowState = 1
+        WHERE requestId = #{requestId}
+    </update>
+
+
+</mapper>
+
+

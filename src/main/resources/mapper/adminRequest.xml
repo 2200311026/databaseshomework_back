@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--找到对应的mapper接口-->
+<mapper namespace="com.wei.furn.dao.adminRequestDao">
+
+
+    <!--    配置resultMap-->
+    <resultMap id="BaseResultMap" type="adminRequest">
+        <id column="requestId" property="requestId" jdbcType="INTEGER"></id>
+        <id column="mobile" property="mobile" jdbcType="VARCHAR"></id>
+        <id column="isbn" property="isbn" jdbcType="INTEGER"></id>
+        <id column="borrowState" property="borrowState" jdbcType="INTEGER"></id>
+        <id column="bookname" property="bookname" jdbcType="VARCHAR"></id>
+        <id column="name" property="name" jdbcType="VARCHAR"></id>
+        <id column="bookNumber" property="bookNumber" jdbcType="VARCHAR"></id>
+    </resultMap>
+
+    <select id="adminRequestdao" resultType="adminRequest">
+        SELECT
+            r.requestId,
+            r.borrowState,
+            r.bookNumber,
+            u.name,
+            u.mobile,
+            b.isbn,
+            b.bookname
+        FROM
+            request r
+                LEFT JOIN userr u ON r.id = u.id
+                LEFT JOIN book b ON r.isbn = b.isbn
+        WHERE
+            r.borrowState != 1;
+    </select>
+
+
+
+    </mapper>

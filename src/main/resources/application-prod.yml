@@ -1,0 +1,14 @@
+spring:
+  #配置静态资源目录
+  #    allow-circular-references: true //允许循环引用
+  resources:
+    static-locations: ["file:/C:/Users/mzby/Desktop/Back_end/数据库大作业/数据库大作业/springboot_furn/springboot_furn/src/main/resources/static"]
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: weibb
+    password: 18907788073
+    url: jdbc:mysql://8.135.237.176:3306/library?useUnicode=true&characterEncoding=utf-8&useSSL=true
+server:
+  address: 0.0.0.0
+
+

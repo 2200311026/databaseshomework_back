@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--找到对应的mapper接口-->
+<mapper namespace="com.wei.furn.dao.showBookDao">
+
+    <!--    配置resultMap-->
+    <resultMap id="BaseResultMap" type="book">
+        <id column="isbn" property="isbn" jdbcType="BIGINT"></id>
+        <id column="category" property="category" jdbcType="VARCHAR"></id>
+        <id column="bookname" property="bookname" jdbcType="VARCHAR"></id>
+        <id column="author" property="author" jdbcType="VARCHAR"></id>
+        <id column="publish" property="publish" jdbcType="VARCHAR"></id>
+        <id column="img" property="img" jdbcType="VARCHAR"></id>
+        <id column="lastnums" property="lastnums" jdbcType="INTEGER"></id>
+        <id column="allnums" property="allnums" jdbcType="INTEGER"></id>
+        <id column="borrownums" property="borrownums" jdbcType="INTEGER"></id>
+<!--        <id column="bookNumber" property="bookNumber" jdbcType="VARCHAR"></id>-->
+    </resultMap>
+
+    <select id="showBook" resultType="book" >
+        SELECT * FROM book
+    </select>
+
+    <insert id="addBook" parameterType="book">
+        INSERT INTO book VALUES
+            (NULL, #{category},#{bookname},#{author},#{publish},#{img},#{lastnums},#{allnums},#{borrownums}); -- 接口11 管理员新增图书
+    </insert>
+
+    <update id="changeBookInfo" parameterType="book">
+        UPDATE book
+        SET category = #{category},bookname = #{bookname},author=#{author},publish=#{publish},img=#{img},lastnums=#{lastnums},allnums=#{allnums},borrownums=#{borrownums}
+        WHERE isbn = #{isbn};
+    </update>
+
+    <update id="lastNumsSub" parameterType="long">
+        UPDATE book
+        SET lastnums = lastnums - 1, borrownums=borrownums+1
+        WHERE isbn = #{isbn};
+    </update>
+
+    <update id="lastNumsAdd" parameterType="long">
+        UPDATE book
+        SET lastnums = lastnums + 1, borrownums=borrownums-1
+        WHERE isbn = #{isbn};
+    </update>
+
+    <select id="getBorrow" parameterType="long" resultType="long">
+        SELECT borrownums
+        FROM book
+        WHERE isbn = #{isbn}
+    </select>
+
+<delete id="deleteBook" parameterType="long">
+    DELETE FROM book WHERE isbn =#{isbn};
+</delete>
+
+    <select id="booksNums" resultType="long">
+        SELECT COUNT(*) FROM book;
+    </select>
+
+    <select id="selectBooksByName" resultType="book">
+        SELECT * FROM book
+        <where>
+            <if test="bookname != null and bookname != ''">
+                bookname LIKE CONCAT('%', #{name}, '%')
+            </if>
+        </where>
+    </select>
+
+    <update id="changeImg" >
+        UPDATE book
+        SET img = #{img}
+        WHERE isbn = #{isbn};
+    </update>
+
+    <select id="getBookName" parameterType="long" resultType="String">
+        SELECT bookname FROM book WHERE isbn=#{isbn}
+    </select>
+
+</mapper>

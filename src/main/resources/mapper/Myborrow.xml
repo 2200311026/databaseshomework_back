@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--找到对应的mapper接口-->
+<mapper namespace="com.wei.furn.dao.MyBorrowDao">
+
+    <!--    配置resultMap-->
+    <resultMap id="BaseResultMap" type="Myborrow">
+        <id column="isbn" property="isbn" jdbcType="BIGINT"></id>
+        <id column="category" property="category" jdbcType="VARCHAR"></id>
+        <id column="bookname" property="bookname" jdbcType="VARCHAR"></id>
+        <id column="author" property="author" jdbcType="VARCHAR"></id>
+        <id column="publish" property="publish" jdbcType="VARCHAR"></id>
+        <id column="img" property="img" jdbcType="VARCHAR"></id>
+        <id column="lastnums" property="lastnums" jdbcType="INTEGER"></id>
+        <id column="borrowState" property="borrowState" jdbcType="INTEGER"></id>
+        <id column="requestId" property="requestId" jdbcType="INTEGER"></id>
+        <id column="bookNumber" property="bookNumber" jdbcType="VARCHAR"></id>
+    </resultMap>
+
+    <select id="getMyborrowDao" resultType="Myborrow">
+        SELECT
+        b.*,
+        r.borrowState,
+        r.requestId,
+        r.bookNumber
+        FROM
+        `book` b
+        JOIN
+        `request` r ON b.isbn = r.isbn
+        WHERE
+        r.id = #{id}
+    </select>
+
+</mapper>

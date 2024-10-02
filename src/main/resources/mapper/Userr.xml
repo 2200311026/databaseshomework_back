@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--找到对应的mapper接口-->
+<mapper namespace="com.wei.furn.dao.userInfoDao">
+
+    <!--    配置resultMap-->
+    <resultMap id="BaseResultMap" type="userr">
+        <id column="id" property="id" jdbcType="BIGINT"></id>
+        <id column="name" property="name" jdbcType="VARCHAR"></id>
+        <id column="pwd" property="pwd" jdbcType="VARCHAR"></id>
+        <id column="mobile" property="email" jdbcType="VARCHAR"></id>
+        <id column="gender" property="gender" jdbcType="INTEGER"></id>
+        <id column="admin" property="admin" jdbcType="INTEGER"></id>
+        <id column="addr" property="addr" jdbcType="VARCHAR"></id>
+        <id column="money" property="money" jdbcType="INTEGER"></id>
+    </resultMap>
+
+<select id="getUserInfo" resultType="userr" parameterType="long">
+    SELECT *FROM userr
+    WHERE id = #{id};
+</select>
+
+    <update id="changeUserInfo" >
+        UPDATE userr
+        SET `name` = #{name},mobile = #{mobile},email=#{email},gender=#{gender},addr=#{addr}
+        WHERE id = #{id};
+    </update>
+
+    <select id="getUserPassword" parameterType="long" resultType="String">
+        SELECT pwd FROM userr WHERE id =#{id}
+    </select>
+
+    <update id="updatePassword" >
+        UPDATE userr
+        SET pwd=#{newpwd}
+        WHERE id=#{id}
+    </update>
+
+    <select id="getName" resultType="String" parameterType="long">
+        SELECT `name` FROM userr WHERE id=#{id}
+    </select>
+
+    <select id="getMoney" parameterType="long" resultType="long">
+        SELECT money
+        FROM userr WHERE id =#{id}
+    </select>
+
+    <update id="addMoney" parameterType="long" >
+        UPDATE userr
+        SET money = money + #{money}
+        WHERE id =#{id}
+    </update>
+
+    <select id="allPenalty" parameterType="long" resultType="integer">
+        SELECT
+            SUM(penalty) AS penalty
+        FROM
+            records
+        WHERE
+            id = #{id} -- 这里你需要替换[具体的用户ID]为你想查询的用户ID
+        GROUP BY
+            id;
+    </select>
+
+</mapper>
+

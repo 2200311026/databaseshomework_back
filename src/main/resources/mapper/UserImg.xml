@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--找到对应的mapper接口-->
+<mapper namespace="com.wei.furn.dao.UserImgDao">
+
+    <!--    配置resultMap-->
+    <resultMap id="BaseResultMap" type="userImg">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <id column="img" property="img" jdbcType="VARCHAR"></id>
+    </resultMap>
+
+
+
+
+    <select id="getImgUrl" resultType="string" parameterType="long">
+        SELECT img
+        FROM userImg
+        WHERE id = #{id};
+    </select>
+
+    <update id="putImgUrl"  >
+        UPDATE userImg
+        SET img =#{img}
+        WHERE id =#{id};
+    </update>
+
+    <select id="ifsaveId" resultType="Long">
+        SELECT *
+        FROM userImg
+        WHERE id = #{id};
+    </select>
+
+    <insert id="insertId">
+        INSERT INTO userImg VALUES
+            (#{id}, #{img});
+    </insert>
+
+
+    </mapper>

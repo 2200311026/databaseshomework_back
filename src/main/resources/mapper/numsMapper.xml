@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--找到对应的mapper接口-->
+<mapper namespace="com.wei.furn.dao.numsDao">
+
+    <!--    配置resultMap-->
+    <resultMap id="BaseResultMap" type="nums">
+        <id column="isbn" property="isbn" jdbcType="BIGINT"></id>
+        <id column="lastnums" property="lastnums" jdbcType="INTEGER"></id>
+        <id column="allnums" property="allnums" jdbcType="INTEGER"></id>
+        <id column="borrownums" property="borrownums" jdbcType="INTEGER"></id>
+    </resultMap>
+<select id="getNums" parameterType="long" resultType="nums">
+    SELECT isbn, lastnums, allnums, borrownums
+    FROM book
+    WHERE isbn = #{isbn};
+</select>
+    </mapper>
